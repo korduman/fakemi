@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Hakikat mi Hikaye mi? - Film Alıntıları</title>
+    <style>
+        :root {
+            --bg: #1a1a1a;
+            --panel-bg: #2a2a2a;
+            --text: #f0f0f0;
+            --accent: #e2b04a;
+            --real-color: #4caf91;
+            --fake-color: #c44b4b;
+            --correct: #4caf91;
+            --wrong: #c44b4b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #111;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+        .header .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+        }
+        .header .score-area {
+            display: flex;
+            gap: 16px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .header .score-area span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .progress-bar {
+            height: 3px;
+            background: #333;
+            flex-shrink: 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        /* Main game area */
+        .game-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        /* Film info */
+        .film-info {
+            text-align: center;
+            padding: 14px 16px 8px;
+            flex-shrink: 0;
+        }
+        .film-title-tr {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .film-title-original {
+            font-size: 0.85rem;
+            color: #999;
+            font-style: italic;
+        }
+        .film-year {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+        .round-info {
+            font-size: 0.75rem;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        /* Poster */
+        .poster-area {
+            display: flex;
+            justify-content: center;
+            padding: 6px 16px;
+            flex-shrink: 0;
+        }
+        .poster-area img {
+            width: 80px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #444;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+
+        /* Quote panels */
+        .panels-container {
+            flex: 1;
+            display: flex;
+            gap: 1px;
+            background: #111;
+            min-height: 0;
+            margin: 8px 8px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 14px;
+            background: var(--panel-bg);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+            position: relative;
+            min-width: 0;
+        }
+        .panel:active {
+            transform: scale(0.97);
+        }
+        .panel:hover {
+            background: #333;
+        }
+        .panel .quote {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ddd;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+        .panel .label {
+            position: absolute;
+            top: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #777;
+        }
+        .panel.left .label {
+            left: 14px;
+        }
+        .panel.right .label {
+            right: 14px;
+        }
+
+        /* Feedback overlay */
+        .feedback-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .feedback-overlay.show {
+            opacity: 1;
+        }
+        .feedback-text {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+        }
+        .feedback-text.correct {
+            color: var(--correct);
+        }
+        .feedback-text.wrong {
+            color: var(--wrong);
+        }
+
+        /* Result screen */
+        .result-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .result-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .result-card {
+            background: #1e1e1e;
+            border-radius: 16px;
+            padding: 24px 20px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        .result-detail {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .result-quotes {
+            text-align: left;
+            margin: 16px 0;
+            padding: 0 8px;
+        }
+        .result-quote-block {
+            background: #252525;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-left: 3px solid #555;
+        }
+        .result-quote-block.real {
+            border-left-color: var(--real-color);
+        }
+        .result-quote-block.fake {
+            border-left-color: var(--fake-color);
+        }
+        .result-quote-block .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .tag.real {
+            color: var(--real-color);
+        }
+        .tag.fake {
+            color: var(--fake-color);
+        }
+        .result-quote-block .quote-text {
+            font-size: 0.95rem;
+            color: #ddd;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .result-quote-block .quote-original {
+            font-size: 0.8rem;
+            color: #888;
+            font-style: italic;
+        }
+        .result-quote-block .quote-character {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            color: #000;
+            background: var(--accent);
+            margin: 6px;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.85;
+        }
+        .btn.secondary {
+            background: #333;
+            color: #fff;
+        }
+        .result-screen .final-score {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 6px 0 14px;
+        }
+        .result-screen .score-emoji {
+            font-size: 4rem;
+            margin-bottom: 4px;
+        }
+
+        /* Game over */
+        .game-over-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .game-over-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .game-over-card {
+            background: #1e1e1e;
+            border-radius: 20px;
+            padding: 30px 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        .game-over-card .final-emoji {
+            font-size: 5rem;
+            margin-bottom: 10px;
+        }
+        .game-over-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        .game-over-card .final-score-text {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .game-over-card .final-message {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 400px) {
+            .panel .quote {
+                font-size: 0.9rem;
+            }
+            .film-title-tr {
+                font-size: 1.2rem;
+            }
+            .panel {
+                padding: 14px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">🎬 Hakikat mi Hikaye mi?</div>
+        <div class="score-area">
+            ✅ <span id="correctCount">0</span> &nbsp;|&nbsp; ❌ <span id="wrongCount">0</span>
+        </div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+    </div>
+
+    <!-- Game -->
+    <div class="game-container" id="gameContainer">
+        <div class="film-info">
+            <div class="film-title-tr" id="filmTitleTr"></div>
+            <div class="film-title-original" id="filmTitleOriginal"></div>
+            <div class="film-year" id="filmYear"></div>
+            <div class="round-info" id="roundInfo"></div>
+        </div>
+        <div class="poster-area">
+            <img id="filmPoster" src="" alt="Film Posteri" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%22120%22><rect fill=%22%23333%22 width=%2280%22 height=%22120%22 rx=%228%22/><text x=%2240%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23777%22 font-size=%2210%22>🎬</text></svg>'">
+        </div>
+        <div class="panels-container" id="panelsContainer">
+            <div class="panel left" id="panelLeft" onclick="choosePanel('left')">
+                <span class="label">A</span>
+                <span class="quote" id="quoteLeft"></span>
+            </div>
+            <div class="panel right" id="panelRight" onclick="choosePanel('right')">
+                <span class="label">B</span>
+                <span class="quote" id="quoteRight"></span>
+            </div>
+        </div>
+        <div class="feedback-overlay" id="feedbackOverlay">
+            <span class="feedback-text" id="feedbackText"></span>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="result-screen" id="resultScreen">
+        <div class="result-card">
+            <div class="result-icon" id="resultIcon"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <div class="result-detail" id="resultDetail"></div>
+            <div class="result-quotes" id="resultQuotes"></div>
+            <button class="btn" onclick="nextRound()">Sonraki Film ➜</button>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div class="game-over-screen" id="gameOverScreen">
+        <div class="game-over-card">
+            <div class="final-emoji" id="finalEmoji"></div>
+            <h2>Oyun Bitti!</h2>
+            <div class="final-score-text" id="finalScoreText"></div>
+            <div class="final-message" id="finalMessage"></div>
+            <button class="btn" onclick="restartGame()">🔄 Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <script>
+        // ──────────────────────────────────────
+        // GAME DATA
+        // ──────────────────────────────────────
+        const gameData = [{
+            id: "film_godfather",
+            titleTr: "Baba",
+            titleOriginal: "The Godfather",
+            year: 1972,
+            director: "Francis Ford Coppola",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+            real: {
+                quoteTr: "Ona reddedemeyeceği bir teklif yapacağım",
+                quoteOriginal: "I'm gonna make him an offer he can't refuse.",
+                character: "Don Vito Corleone",
+                actor: "Marlon Brando"
+            },
+            fake: {
+                quoteTr: "Ailesiyle zaman geçirmeyen erkek, adam olamaz."
+            }
+        }, {
+            id: "film_casablanca",
+            titleTr: "Kazablanka",
+            titleOriginal: "Casablanca",
+            year: 1942,
+            director: "Michael Curtiz",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/5K7cOHoay2mZusSLezBOY0Qxh8a.jpg",
+            real: {
+                quoteTr: "Kadehimi sana kaldırıyorum, tatlım.",
+                quoteOriginal: "Here's looking at you, kid.",
+                character: "Rick Blaine",
+                actor: "Humphrey Bogart"
+            },
+            fake: {
+                quoteTr: "Aşk rulete benzer. Siyah da oynasan, kırmızı da oynasan sonunda kumarhane kazanır."
+            }
+        }, {
+            id: "film_pulpfiction",
+            titleTr: "Ucuz Roman",
+            titleOriginal: "Pulp Fiction",
+            year: 1994,
+            director: "Quentin Tarantino",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+            real: {
+                quoteTr: "Rahat olmak için neden boş muhabbet yapmamız şartmış gibi geliyor?",
+                quoteOriginal: "Why do we feel it's necessary to yak about bullshit in order to be comfortable?",
+                character: "Mia Wallace",
+                actor: "Uma Thurman"
+            },
+            fake: {
+                quoteTr: "İyi burgerle kötü burger arasındaki fark, iyi bir hayatla kötü bir hayat arasındaki fark gibidir. Isırınca anlarsın."
+            }
+        }, {
+            id: "film_fightclub",
+            titleTr: "Dövüş Kulübü",
+            titleOriginal: "Fight Club",
+            year: 1999,
+            director: "David Fincher",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+            real: {
+                quoteTr: "Sahibi olduğun şeyler, gün gelir sana sahip olur.",
+                quoteOriginal: "The things you own end up owning you.",
+                character: "Tyler Durden",
+                actor: "Brad Pitt"
+            },
+            fake: {
+                quoteTr: "Tüketim, yavaş bir intihar yöntemi. Her aldığımız ürün ölümü unutturacak bir ilaç sadece. Yan etkisi, ölüm."
+            }
+        }, {
+            id: "film_darkknight",
+            titleTr: "Kara Şövalye",
+            titleOriginal: "The Dark Knight",
+            year: 2008,
+            director: "Christopher Nolan",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/qJ2tW6WMUDux911B6EMThXT6Hj.jpg",
+            real: {
+                quoteTr: "Ya kahraman olarak ölürsün ya da yeterince uzun yaşayıp kötü adam olduğunu görürsün.",
+                quoteOriginal: "You either die a hero, or you live long enough to see yourself become the villain.",
+                character: "Harvey Dent",
+                actor: "Aaron Eckhart"
+            },
+            fake: {
+                quoteTr: "Düzen, daha rahat uyumak için kendimize söylediğimiz bir yalandır. Gerçek olan kaostur. Bu yüzden ben hiç uyumam."
+            }
+        }, {
+            id: "film_inception",
+            titleTr: "Başlangıç",
+            titleOriginal: "Inception",
+            year: 2010,
+            director: "Christopher Nolan",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+            real: {
+                quoteTr: "Rüyada beyin işlevleri normalin yaklaşık yirmi katına çıkar. Rüya içinde rüyaya girdiğinde etki katlanarak artar.",
+                quoteOriginal: "Brain function in the dream will be about twenty times to normal. When you enter a dream within that dream, the effect is compounded.",
+                character: "Arthur",
+                actor: "Joseph Gordon-Levitt"
+            },
+            fake: {
+                quoteTr: "Çocuklar oyuncakları paylaşır, büyükler rüyaları."
+            }
+        }, {
+            id: "film_matrix",
+            titleTr: "Matrix",
+            titleOriginal: "The Matrix",
+            year: 1999,
+            director: "Wachowskiler",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+            real: {
+                quoteTr: "Mavi hapı alırsan hikaye biter, yatağında uyanırsın, neye inanmak istersen ona inanırsın. Kırmızı hapı alırsan Harikalar Diyarı'nda kalırsın, sana tavşan deliğinin ne kadar derine indiğini gösteririm.",
+                quoteOriginal: "You take the blue pill—the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes.",
+                character: "Morpheus",
+                actor: "Laurence Fishburne"
+            },
+            fake: {
+                quoteTr: "Sistem isyandan korkmaz. Umursamazlıktan korkar. Umursamazlık tek çaredir."
+            }
+        }, {
+            id: "film_lotr",
+            titleTr: "Yüzüklerin Efendisi: Yüzük Kardeşliği",
+            titleOriginal: "The Lord of the Rings: The Fellowship of the Ring",
+            year: 2001,
+            director: "Peter Jackson",
+            language: "English",
+            poster: "https://image.tmdb.org/t/p/w200/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+            real: {
+                quoteTr: "En küçük insan bile geleceğin akışını değiştirebilir.",
+                quoteOriginal: "Even the smallest person can change the course of the future.",
+                character: "Galadriel",
+                actor: "Cate Blanchett"
+            },
+            fake: {
+                quoteTr: "Umut ve umutsuzluk aynı nefesten doğan iki kardeştir. Umut ileri gider, umutsuzluk yerinde kalır. Orta Dünya'da oturacak yer çok."
+            }
+        }, {
+            id: "film_parasite",
+            titleTr: "Parazit",
+            titleOriginal: "Parasite (Gisaengchung)",
+            year: 2019,
+            director: "Bong Joon-ho",
+            language: "Korean",
+            poster: "https://image.tmdb.org/t/p/w200/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+            real: {
+                quoteTr: "Hangi plan suya düşmez, biliyor musun? Plansızlık. Neden peki? Çünkü hayatın planı olmaz.",
+                quoteOriginal: "You know what kind of plan never fails? No plan. No plan at all. You know why? Because life cannot be planned.",
+                character: "Ki-taek",
+                actor: "Song Kang-ho"
+            },
+            fake: {
+                quoteTr: "Merdiven çok zalim bir yapı. Yukarı çıkarmayı vaat eder ama her adımını sayar."
+            }
+        }, {
+            id: "film_eskiya",
+            titleTr: "Eşkıya",
+            titleOriginal: "Eşkıya",
+            year: 1996,
+            director: "Yavuz Turgul",
+            language: "Turkish",
+            poster: "https://image.tmdb.org/t/p/w200/7nPGpKOm7xGqFRZx1nwuDG8GqZL.jpg",
+            real: {
+                quoteTr: "İnsanın memleketi doğduğu yer değil, doyduğu yerdir derler. Ama doğduğun yerden başka neresi doyurabilir ki adamı?",
+                quoteOriginal: "İnsanın memleketi doğduğu yer değil, doyduğu yerdir derler. Ama doğduğun yerden başka neresi doyurabilir ki adamı?",
+                character: "Baran",
+                actor: "Şener Şen"
+            },
+            fake: {
+                quoteTr: "Sen hiç bir insanı otuz beş yıl bekledin mi? Bekleme. Çünkü beklenen gelmez. Gelen, beklenmeyendir. Hayat böyle bir kumardır işte."
+            }
+        }];
+
+        // ──────────────────────────────────────
+        // STATE
+        // ──────────────────────────────────────
+        let currentIndex = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let currentRealSide = null; // 'left' or 'right'
+        let answered = false;
+
+        // ──────────────────────────────────────
+        // DOM ELEMENTS
+        // ──────────────────────────────────────
+        const filmTitleTr = document.getElementById('filmTitleTr');
+        const filmTitleOriginal = document.getElementById('filmTitleOriginal');
+        const filmYear = document.getElementById('filmYear');
+        const roundInfo = document.getElementById('roundInfo');
+        const filmPoster = document.getElementById('filmPoster');
+        const quoteLeft = document.getElementById('quoteLeft');
+        const quoteRight = document.getElementById('quoteRight');
+        const panelLeft = document.getElementById('panelLeft');
+        const panelRight = document.getElementById('panelRight');
+        const feedbackOverlay = document.getElementById('feedbackOverlay');
+        const feedbackText = document.getElementById('feedbackText');
+        const resultScreen = document.getElementById('resultScreen');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDetail = document.getElementById('resultDetail');
+        const resultQuotes = document.getElementById('resultQuotes');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const correctCountEl = document.getElementById('correctCount');
+        const wrongCountEl = document.getElementById('wrongCount');
+        const progressFill = document.getElementById('progressFill');
+
+        // ──────────────────────────────────────
+        // FUNCTIONS
+        // ──────────────────────────────────────
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        let shuffledData = [];
+
+        function restartGame() {
+            currentIndex = 0;
+            correctCount = 0;
+            wrongCount = 0;
+            answered = false;
+            updateScores();
+            gameOverScreen.classList.remove('active');
+            resultScreen.classList.remove('active');
+            feedbackOverlay.classList.remove('show');
+            shuffledData = shuffleArray(gameData);
+            loadRound();
+        }
+
+        function updateScores() {
+            correctCountEl.textContent = correctCount;
+            wrongCountEl.textContent = wrongCount;
+            const total = gameData.length;
+            const done = correctCount + wrongCount;
+            progressFill.style.width = (done / total) * 100 + '%';
+        }
+
+        function loadRound() {
+            if (currentIndex >= shuffledData.length) {
+                showGameOver();
+                return;
+            }
+            answered = false;
+            resultScreen.classList.remove('active');
+            feedbackOverlay.classList.remove('show');
+            panelLeft.style.pointerEvents = 'auto';
+            panelRight.style.pointerEvents = 'auto';
+            panelLeft.style.opacity = '1';
+            panelRight.style.opacity = '1';
+            panelLeft.style.background = '';
+            panelRight.style.background = '';
+
+            const film = shuffledData[currentIndex];
+            filmTitleTr.textContent = film.titleTr;
+            filmTitleOriginal.textContent = film.titleOriginal;
+            filmYear.textContent = film.year + ' · ' + film.director;
+            roundInfo.textContent = (currentIndex + 1) + ' / ' + shuffledData.length;
+            filmPoster.src = film.poster;
+
+            // Randomize which side gets the real quote
+            if (Math.random() < 0.5) {
+                currentRealSide = 'left';
+                quoteLeft.textContent = '"' + film.real.quoteTr + '"';
+                quoteRight.textContent = '"' + film.fake.quoteTr + '"';
+            } else {
+                currentRealSide = 'right';
+                quoteRight.textContent = '"' + film.real.quoteTr + '"';
+                quoteLeft.textContent = '"' + film.fake.quoteTr + '"';
+            }
+            updateScores();
+        }
+
+        function choosePanel(side) {
+            if (answered) return;
+            answered = true;
+
+            const film = shuffledData[currentIndex];
+            const isCorrect = (side === currentRealSide);
+
+            // Highlight panels
+            if (currentRealSide === 'left') {
+                panelLeft.style.background = '#1a3a2a';
+                panelRight.style.background = '#3a1a1a';
+            } else {
+                panelRight.style.background = '#1a3a2a';
+                panelLeft.style.background = '#3a1a1a';
+            }
+
+            // Flash feedback
+            feedbackText.textContent = isCorrect ? '✓' : '✗';
+            feedbackText.className = 'feedback-text ' + (isCorrect ? 'correct' : 'wrong');
+            feedbackOverlay.classList.add('show');
+
+            if (isCorrect) {
+                correctCount++;
+            } else {
+                wrongCount++;
+            }
+            updateScores();
+
+            panelLeft.style.pointerEvents = 'none';
+            panelRight.style.pointerEvents = 'none';
+
+            // Show result after short delay
+            setTimeout(() => {
+                feedbackOverlay.classList.remove('show');
+                showResult(film, isCorrect);
+            }, 800);
+        }
+
+        function showResult(film, isCorrect) {
+            resultIcon.textContent = isCorrect ? '✅' : '❌';
+            resultTitle.textContent = isCorrect ? 'Doğru bildiniz!' : 'Yanlış bildiniz!';
+            resultDetail.textContent = film.titleTr + ' (' + film.titleOriginal + ', ' + film.year + ')';
+
+            resultQuotes.innerHTML = `
+                <div class="result-quote-block real">
+                    <div class="tag real">✅ Gerçek Alıntı</div>
+                    <div class="quote-text">"${film.real.quoteTr}"</div>
+                    <div class="quote-original">"${film.real.quoteOriginal}"</div>
+                    <div class="quote-character">— ${film.real.character} (${film.real.actor})</div>
+                </div>
+                <div class="result-quote-block fake">
+                    <div class="tag fake">❌ Sahte Alıntı</div>
+                    <div class="quote-text">"${film.fake.quoteTr}"</div>
+                    <div class="quote-original" style="color:#999;">Bu söz filmde geçmez. Yapay zeka tarafından üretilmiştir.</div>
+                </div>
+            `;
+
+            resultScreen.classList.add('active');
+        }
+
+        function nextRound() {
+            currentIndex++;
+            loadRound();
+        }
+
+        function showGameOver() {
+            const total = gameData.length;
+            const score = correctCount;
+            let emoji, message;
+            if (score === total) {
+                emoji = '🏆';
+                message = 'Mükemmel! Tüm alıntıları doğru bildiniz. Gerçek bir sinema tutkunusunuz!';
+            } else if (score >= total * 0.8) {
+                emoji = '🌟';
+                message = 'Harika! Filmleri iyi tanıyorsunuz. Sahte alıntıları yakalamakta ustasınız.';
+            } else if (score >= total * 0.6) {
+                emoji = '🎬';
+                message = 'Fena değil! Bazı sahte alıntılar epey inandırıcıydı, değil mi?';
+            } else if (score >= total * 0.4) {
+                emoji = '🍿';
+                message = 'Eh, idare eder. Yapay zeka bazen çok ikna edici olabiliyor.';
+            } else {
+                emoji = '🤖';
+                message = 'Yapay zeka sizi kandırmış! Ama üzülmeyin, bu alıntıları ayırt etmek gerçekten zor.';
+            }
+
+            document.getElementById('finalEmoji').textContent = emoji;
+            document.getElementById('finalScoreText').textContent = score + ' / ' + total + ' Doğru';
+            document.getElementById('finalMessage').textContent = message;
+            gameOverScreen.classList.add('active');
+        }
+
+        // ──────────────────────────────────────
+        // KEYBOARD SUPPORT
+        // ──────────────────────────────────────
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') choosePanel('left');
+            if (e.key === 'ArrowRight') choosePanel('right');
+            if (e.key === 'Enter' && resultScreen.classList.contains('active')) nextRound();
+            if (e.key === 'r' || e.key === 'R') {
+                if (gameOverScreen.classList.contains('active')) restartGame();
+            }
+        });
+
+        // ──────────────────────────────────────
+        // INIT
+        // ──────────────────────────────────────
+        shuffledData = shuffleArray(gameData);
+        loadRound();
+    </script>
+</body>
+</html>
