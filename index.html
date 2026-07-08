@@ -137,293 +137,10 @@
     </div>
 
     <script>
-        // ══════════════════════════════════════
-        // VERİ - Her film için real[] ve fake[] dizileri
-        // Yeni alıntı eklemek için { ... }, şeklinde dizi içine ekleyin
-        // ══════════════════════════════════════
         const gameData = [
-            {
-                id: "film_godfather",
-                titleTr: "Baba",
-                titleOriginal: "The Godfather",
-                year: 1972,
-                director: "Francis Ford Coppola",
-                poster: "https://image.tmdb.org/t/p/w200/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-                real: [
-                    {
-                        quoteTr: "Ona reddedemeyeceği bir teklif yapacağım",
-                        quoteOriginal: "I'm gonna make him an offer he can't refuse.",
-                        character: "Don Vito Corleone",
-                        actor: "Marlon Brando"
-                    },
-                    {
-                        quoteTr: "Kişisel değil Sonny. İş bu.",
-                        quoteOriginal: "It's not personal, Sonny. It's strictly business.",
-                        character: "Michael Corleone",
-                        actor: "Al Pacino"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Ailesiyle zaman geçirmeyen erkek, adam olamaz." },
-                    { quoteTr: "Arkadaşına ihanet edersin, yeri gelir kendine bile ihanet edersin. Ama aileye ihanet edilmez." }
-                ]
-            },
-            {
-                id: "film_casablanca",
-                titleTr: "Kazablanka",
-                titleOriginal: "Casablanca",
-                year: 1942,
-                director: "Michael Curtiz",
-                poster: "https://image.tmdb.org/t/p/w200/5K7cOHoay2mZusSLezBOY0Qxh8a.jpg",
-                real: [
-                    {
-                        quoteTr: "Kadehimi sana kaldırıyorum, tatlım.",
-                        quoteOriginal: "Here's looking at you, kid.",
-                        character: "Rick Blaine",
-                        actor: "Humphrey Bogart"
-                    },
-                    {
-                        quoteTr: "Paris hep bizim olacak.",
-                        quoteOriginal: "We'll always have Paris.",
-                        character: "Rick Blaine",
-                        actor: "Humphrey Bogart"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Her limanda kendimden bir parça bıraktım. Ama en önemlisi, seninle bıraktığımdı." },
-                    { quoteTr: "Aşk rulete benzer. Siyah da oynasan, kırmızı da oynasan sonunda kumarhane kazanır." },
-                    { quoteTr: "Bana neden yüzümün gülmediğini sordun. Bütün gülümsemelerimi Paris'te sana verdim." }
-                ]
-            },
-            {
-                id: "film_pulpfiction",
-                titleTr: "Ucuz Roman",
-                titleOriginal: "Pulp Fiction",
-                year: 1994,
-                director: "Quentin Tarantino",
-                poster: "https://image.tmdb.org/t/p/w200/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
-                real: [
-                    {
-                        quoteTr: "Rahat olmak için neden boş muhabbet yapmamız şartmış gibi geliyor?",
-                        quoteOriginal: "Why do we feel it's necessary to yak about bullshit in order to be comfortable?",
-                        character: "Mia Wallace",
-                        actor: "Uma Thurman"
-                    },
-                    {
-                        quoteTr: "Bu parayı seni gebertmek zorunda kalmayayım diye veriyorum.",
-                        quoteOriginal: "I'm givin' you that money so I don't have to kill your ass.",
-                        character: "Butch Coolidge",
-                        actor: "Bruce Willis"
-                    },
-                    {
-                        quoteTr: "Bu dükkanda kimse kimseyi öldüremez. Ben ve Zed hariç.",
-                        quoteOriginal: "Nobody kills anyone in my store except me and Zed.",
-                        character: "Maynard",
-                        actor: "Duane Whitaker"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "İyi burgerle kötü burger arasındaki fark, iyi bir hayatla kötü bir hayat arasındaki fark gibidir. Isırınca anlarsın." },
-                    { quoteTr: "Bu dünyada çobanlar ve koyunlar vardır. Ama bazen bir kurt çoban gibi giyinir. İşler o zaman ilginçleşir." },
-                    { quoteTr: "Los Angeles'ta neye mucize denir? Park yerine. Vadide neye mucize denir? Sessizliğe." }
-                ]
-            },
-            {
-                id: "film_fightclub",
-                titleTr: "Dövüş Kulübü",
-                titleOriginal: "Fight Club",
-                year: 1999,
-                director: "David Fincher",
-                poster: "https://image.tmdb.org/t/p/w200/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
-                real: [
-                    {
-                        quoteTr: "Sahibi olduğun şeyler, gün gelir sana sahip olur.",
-                        quoteOriginal: "The things you own end up owning you.",
-                        character: "Tyler Durden",
-                        actor: "Brad Pitt"
-                    },
-                    {
-                        quoteTr: "Ancak her şeyi kaybettikten sonra istediğimizi yapmakta özgür oluruz.",
-                        quoteOriginal: "It's only after we've lost everything that we're free to do anything.",
-                        character: "Tyler Durden",
-                        actor: "Brad Pitt"
-                    },
-                    {
-                        quoteTr: "Daha kötüsü de olabilirdi. Kadının biri sen uyurken çükünü kesip araba giderken camdan dışarı atabilirdi.",
-                        quoteOriginal: "It could be worse. A woman could cut off your penis while you're sleeping and toss it out the window of a moving car.",
-                        character: "Anlatıcı",
-                        actor: "Edward Norton"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Hayatımız boyunca kendimize kafesler inşa ederiz, onların adına ev deriz, kariyer deriz, evlilik deriz." },
-                    { quoteTr: "Tüketim, yavaş bir intihar yöntemi. Her aldığımız ürün ölümü unutturacak bir ilaç sadece. Yan etkisi, ölüm." },
-                    { quoteTr: "Acı, bedenin dürüstçe konuştuğu tek dildir. Her çeviri, yalanlar içerir." }
-                ]
-            },
-            {
-                id: "film_darkknight",
-                titleTr: "Kara Şövalye",
-                titleOriginal: "The Dark Knight",
-                year: 2008,
-                director: "Christopher Nolan",
-                poster: "https://image.tmdb.org/t/p/w200/qJ2tW6WMUDux911B6EMThXT6Hj.jpg",
-                real: [
-                    {
-                        quoteTr: "Bu ne ciddiyet böyle?",
-                        quoteOriginal: "Why so serious?",
-                        character: "Joker",
-                        actor: "Heath Ledger"
-                    },
-                    {
-                        quoteTr: "Bazıları sadece dünyanın yanmasını seyretmek ister.",
-                        quoteOriginal: "Some men just want to watch the world burn.",
-                        character: "Alfred Pennyworth",
-                        actor: "Michael Caine"
-                    },
-                    {
-                        quoteTr: "Ya kahraman olarak ölürsün ya da yeterince uzun yaşayıp kötü adam olduğunu görürsün.",
-                        quoteOriginal: "You either die a hero, or you live long enough to see yourself become the villain.",
-                        character: "Harvey Dent",
-                        actor: "Aaron Eckhart"
-                    },
-                    {
-                        quoteTr: "Bir işte iyiysen hayatta bedavaya yapma.",
-                        quoteOriginal: "If you're good at something, never do it for free.",
-                        character: "Joker",
-                        actor: "Heath Ledger"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Düzen, daha rahat uyumak için kendimize söylediğimiz bir yalandır. Gerçek olan kaostur. Bu yüzden ben hiç uyumam." },
-                    { quoteTr: "Maskeler kim olduğumuzu saklamaz. Onu belli eder. Ben maskeleri düşürüyorum." }
-                ]
-            },
-            {
-                id: "film_inception",
-                titleTr: "Başlangıç",
-                titleOriginal: "Inception",
-                year: 2010,
-                director: "Christopher Nolan",
-                poster: "https://image.tmdb.org/t/p/w200/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-                real: [
-                    {
-                        quoteTr: "Senin için geri geldim... Sana bir şeyi hatırlatmaya. Bir zamanlar bildiğin bir şeyi...",
-                        quoteOriginal: "I've come back for you... to remind you of something. Something you once knew...",
-                        character: "Dom Cobb",
-                        actor: "Leonardo DiCaprio"
-                    },
-                    {
-                        quoteTr: "Rüyada beyin işlevleri normalin yaklaşık yirmi katına çıkar. Rüya içinde rüyaya girdiğinde etki katlanarak artar.",
-                        quoteOriginal: "Brain function in the dream will be about twenty times to normal. When you enter a dream within that dream, the effect is compounded.",
-                        character: "Arthur",
-                        actor: "Joseph Gordon-Levitt"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Rüyalar zihin için ölümün provasıdır. Her gece dünyadan çekip gitmeyi deneriz." },
-                    { quoteTr: "Her anı, kör bir mimar tarafından yapılan bir labirenttir. Bin kere de yürüsen çıkışı bulamazsın çünkü çıkışı yok." },
-                    { quoteTr: "Çocuklar oyuncakları paylaşır, büyükler rüyaları." }
-                ]
-            },
-            {
-                id: "film_matrix",
-                titleTr: "Matrix",
-                titleOriginal: "The Matrix",
-                year: 1999,
-                director: "Wachowskiler",
-                poster: "https://image.tmdb.org/t/p/w200/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
-                real: [
-                    {
-                        quoteTr: "Kaşığı bükmeye çalışma. Mümkün değil çünkü. Onun yerine gerçeği kavramaya çalış.",
-                        quoteOriginal: "Do not try and bend the spoon. That's impossible. Instead... only try to realize the truth.",
-                        character: "Spoon Boy",
-                        actor: "Rowan Witt"
-                    },
-                    {
-                        quoteTr: "Neo, er geç sen de benim gibi anlayacaksın: Yolu bilmekle o yoldan yürümek farklı şeyler.",
-                        quoteOriginal: "Neo, sooner or later you're going to realize just as I did that there's a difference between knowing the path and walking the path.",
-                        character: "Morpheus",
-                        actor: "Laurence Fishburne"
-                    },
-                    {
-                        quoteTr: "Biliyorum, bu biftek aslında yok. Ama ağzıma attığım anda Matriks beynime ne kadar sulu ve lezzetli olduğunu söylüyor.",
-                        quoteOriginal: "You know, I know this steak doesn't exist. I know that when I put it in my mouth, the Matrix is telling my brain that it is juicy and delicious.",
-                        character: "Cypher",
-                        actor: "Joe Pantoliano"
-                    },
-                    {
-                        quoteTr: "Mavi hapı alırsan hikaye biter, yatağında uyanırsın, neye inanmak istersen ona inanırsın. Kırmızı hapı alırsan Harikalar Diyarı'nda kalırsın, sana tavşan deliğinin ne kadar derine indiğini gösteririm.",
-                        quoteOriginal: "You take the blue pill—the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill—you stay in Wonderland, and I show you how deep the rabbit hole goes.",
-                        character: "Morpheus",
-                        actor: "Laurence Fishburne"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Sistem isyandan korkmaz. Umursamazlıktan korkar. Umursamazlık tek çaredir." },
-                    { quoteTr: "Bu hapishane seçim denen yanılsama sayesinde ayakta duruyor. Sence sen bu hayatı seçtin mi? Yol zaten belliydi. Sen hangi ayakkabıları giyeceğini seçtin." },
-                    { quoteTr: "Bedenin bir pil. Zihnin bir program. Ruhun bir arıza. Ve arızalar, Bay Anderson, sistemi çökertebilir." }
-                ]
-            },
-            {
-                id: "film_lotr",
-                titleTr: "Yüzüklerin Efendisi: Yüzük Kardeşliği",
-                titleOriginal: "The Lord of the Rings: The Fellowship of the Ring",
-                year: 2001,
-                director: "Peter Jackson",
-                poster: "https://image.tmdb.org/t/p/w200/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
-                real: [
-                    {
-                        quoteTr: "Mordor'a öylece yürüyerek gidilmez.",
-                        quoteOriginal: "One does not simply walk into Mordor.",
-                        character: "Boromir",
-                        actor: "Sean Bean"
-                    },
-                    {
-                        quoteTr: "Vermemiz gereken tek karar, bize tanınan zamanda ne yapacağımız.",
-                        quoteOriginal: "All we have to decide is what to do with the time that is given us.",
-                        character: "Gandalf",
-                        actor: "Ian McKellen"
-                    },
-                    {
-                        quoteTr: "En küçük insan bile geleceğin akışını değiştirebilir.",
-                        quoteOriginal: "Even the smallest person can change the course of the future.",
-                        character: "Galadriel",
-                        actor: "Cate Blanchett"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Yüzük neden beni seçmedi diye uykularının kaçmasına gerek yok. Asıl seni seçseydi uyuyamazdın." },
-                    { quoteTr: "Umut ve umutsuzluk aynı nefesten doğan iki kardeştir. Umut ileri gider, umutsuzluk yerinde kalır. Orta Dünya'da oturacak yer çok." }
-                ]
-            },
-            {
-                id: "film_parasite",
-                titleTr: "Parazit",
-                titleOriginal: "Parasite (Gisaengchung)",
-                year: 2019,
-                director: "Bong Joon-ho",
-                poster: "https://image.tmdb.org/t/p/w200/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
-                real: [
-                    {
-                        quoteTr: "Kadın zengin ama iyi. Zenginler iyi olur. Kötü olmalarına gerek yok. Para ütüye benzer, kırışıkları düzeltir.",
-                        quoteOriginal: "She's rich, but still nice. Rich people are nice. They don't have to be mean. Money is an iron. It smooths out all the wrinkles.",
-                        character: "Ki-taek",
-                        actor: "Song Kang-ho"
-                    },
-                    {
-                        quoteTr: "Hangi plan suya düşmez, biliyor musun? Plansızlık. Neden peki? Çünkü hayatın planı olmaz.",
-                        quoteOriginal: "You know what kind of plan never fails? No plan. No plan at all. You know why? Because life cannot be planned.",
-                        character: "Ki-taek",
-                        actor: "Song Kang-ho"
-                    }
-                ],
-                fake: [
-                    { quoteTr: "Bodrumda hepimiz aynı şekilde kokarız. Küf, diplomaya bakmaz. Nem, banka hesabınla ilgilenmez. Yer altının demokrasisi böyledir." },
-                    { quoteTr: "Zenginler yukarı bakınca gökyüzünü görür, yıldızları görür. Biz yukarı bakınca havuzun dibini görürüz." },
-                    { quoteTr: "Merdiven çok zalim bir yapı. Yukarı çıkarmayı vaat eder ama her adımını sayar." }
-                ]
-            },
+            // ══════════════════════════════════════
+            // 1. EŞKIYA (1996) - TÜRKÇE
+            // ══════════════════════════════════════
             {
                 id: "film_eskiya",
                 titleTr: "Eşkıya",
@@ -432,23 +149,427 @@
                 director: "Yavuz Turgul",
                 poster: "https://image.tmdb.org/t/p/w200/7nPGpKOm7xGqFRZx1nwuDG8GqZL.jpg",
                 real: [
-                    {
-                        quoteTr: "İnsanın memleketi doğduğu yer değil, doyduğu yerdir derler. Ama doğduğun yerden başka neresi doyurabilir ki adamı?",
-                        quoteOriginal: "İnsanın memleketi doğduğu yer değil, doyduğu yerdir derler. Ama doğduğun yerden başka neresi doyurabilir ki adamı?",
-                        character: "Baran",
-                        actor: "Şener Şen"
-                    },
-                    {
-                        quoteTr: "Otuz beş yıl sonra bir dağ başında, bir başıma. Ne arayan var, ne soran.",
-                        quoteOriginal: "Otuz beş yıl sonra bir dağ başında, bir başıma. Ne arayan var, ne soran.",
-                        character: "Baran",
-                        actor: "Şener Şen"
-                    }
+                    { quoteTr: "Sevdiğin kadını kıytırık bir herifin hayatı için harcadın. Halbuki o kadın seni bir ömür bekledi.", quoteOriginal: "Sevdiğin kadını kıytırık bir herifin hayatı için harcadın. Halbuki o kadın seni bir ömür bekledi.", character: "Berfo", actor: "Kamuran Usluer" },
+                    { quoteTr: "Kurt ve kuş bizdendir oğul. Asıl kötülük başka yerde.", quoteOriginal: "Kurt ve kuş bizdendir oğul. Asıl kötülük başka yerde.", character: "Ceren Ana", actor: "Zübeyde Erden" },
+                    { quoteTr: "Bu şehir hapishane Cumali. Nefes alamıyorum. Hayvan ölüsü gibi kokuyor. Koğuşlar böyle kokardı.", quoteOriginal: "Bu şehir hapishane Cumali. Nefes alamıyorum. Hayvan ölüsü gibi kokuyor. Koğuşlar böyle kokardı.", character: "Baran", actor: "Şener Şen" }
                 ],
                 fake: [
                     { quoteTr: "Hapishane dediğin dört duvar değil. Asıl hapishane, insanın kendi vicdanıdır. Oradan firar etmeye bir kez kalkıştın mı, bütün duvarlar zayıf gelir." },
                     { quoteTr: "Dağların bile birbirine selamı var. Rüzgarla gönderirler, yağmurla alırlar. İnsan insana selam vermez oldu. Dağlardan daha mı taşız biz?" },
                     { quoteTr: "Sen hiç bir insanı otuz beş yıl bekledin mi? Bekleme. Çünkü beklenen gelmez. Gelen, beklenmeyendir. Hayat böyle bir kumardır işte." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 2. SHAWSHANK REDEMPTION
+            // ══════════════════════════════════════
+            {
+                id: "film_shawshank",
+                titleTr: "Esaretin Bedeli",
+                titleOriginal: "The Shawshank Redemption",
+                year: 1994,
+                director: "Frank Darabont",
+                poster: "https://image.tmdb.org/t/p/w200/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg",
+                real: [
+                    { quoteTr: "Umut iyi bir şey, belki de en iyi şey ve iyi şeyler yok olmaz.", quoteOriginal: "Hope is a good thing, maybe the best of things, and no good thing ever dies.", character: "Andy Dufresne", actor: "Tim Robbins" },
+                    { quoteTr: "Sonuçta basit bir seçim bu: Ya yaşamaya koyulursun, ya da ölmeye.", quoteOriginal: "I guess it comes down to a simple choice, really. Get busy living, or get busy dying.", character: "Andy Dufresne", actor: "Tim Robbins" }
+                ],
+                fake: [
+                    { quoteTr: "Bu duvarların arasında geçen her gün, dışarıdaki bir ömre bedel. Ama zaman insanı şekillendirmez, insan zamana şekil verir." },
+                    { quoteTr: "Masumiyet garip bir şey. İnsan en çok, suçsuzken suçlu hisseder kendini." },
+                    { quoteTr: "Kaçmak fiziksel bir eylem değil. Zihnin duvarları aştığı an, beden de peşinden gider." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 3. GOODFELLAS
+            // ══════════════════════════════════════
+            {
+                id: "film_goodfellas",
+                titleTr: "Sıkı Dostlar",
+                titleOriginal: "Goodfellas",
+                year: 1990,
+                director: "Martin Scorsese",
+                poster: "https://image.tmdb.org/t/p/w200/aKuFiU82s5ISJDt7GJ4P2YzT2T8.jpg",
+                real: [
+                    { quoteTr: "Kendimi bildim bileli gangster olmak istedim.", quoteOriginal: "As far back as I can remember, I always wanted to be a gangster.", character: "Henry Hill", actor: "Ray Liotta" },
+                    { quoteTr: "Nesi komik? Palyaço muyum ben? Seni eğlendiriyor muyum?", quoteOriginal: "Funny how? I mean, funny like I'm a clown? I amuse you?", character: "Tommy DeVito", actor: "Joe Pesci" },
+                    { quoteTr: "Git de evden boya sandığını getir, boyacı.", quoteOriginal: "Now go home and get your fuckin' shinebox.", character: "Billy Batts", actor: "Frank Vincent" }
+                ],
+                fake: [
+                    { quoteTr: "Bu hayatta üç tip arkadaşın olur: senin için ölecekler, senin için öldürecekler ve seni bir sandviçe satacaklar." },
+                    { quoteTr: "Restoranın arka odası benim üniversitemdi. İnsan doğasını, mafya babalarının spagetti yemesini izleyerek öğrendim." },
+                    { quoteTr: "Sadakat, kısa vadede iyi işleyen bir para birimidir. Ama fatura bir gün mutlaka gelir." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 4. INTERSTELLAR
+            // ══════════════════════════════════════
+            {
+                id: "film_interstellar",
+                titleTr: "Yıldızlararası",
+                titleOriginal: "Interstellar",
+                year: 2014,
+                director: "Christopher Nolan",
+                poster: "https://image.tmdb.org/t/p/w200/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+                real: [
+                    { quoteTr: "Eskiden göğe bakar yıldızlardaki yerimizi düşünürdük. Şimdi başımız aşağı eğik, topraktaki yerimizi düşünüyoruz.", quoteOriginal: "We used to look up at the sky and wonder at our place in the stars. Now we just look down, and worry about our place in the dirt.", character: "Cooper", actor: "Matthew McConaughey" },
+                    { quoteTr: "Zamanın ve mekanın boyutlarını aşan bir tek şeyi algılayabiliriz: Sevgi.", quoteOriginal: "Love is the one thing we're capable of perceiving that transcends dimensions of time and space.", character: "Amelia Brand", actor: "Anne Hathaway" }
+                ],
+                fake: [
+                    { quoteTr: "Zaman, yerçekiminden daha acımasız. Yerçekimi sadece bedeni çeker, zaman ruhu çeker. Ve ruh, bedenden daha ağırdır." },
+                    { quoteTr: "Her solucan deliği bir pişmanlıktır. Geçmişe açılan kapılar asla kapanmaz, sadece ışık hızıyla uzaklaşır." },
+                    { quoteTr: "Uzayda kaybolmak kolay. Asıl zor olan, dünyada kaybolmaktır. Dünyada kaybolanlar, yıldızlara bakıp evlerini ararlar." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 5. GLADIATOR
+            // ══════════════════════════════════════
+            {
+                id: "film_gladiator",
+                titleTr: "Gladyatör",
+                titleOriginal: "Gladiator",
+                year: 2000,
+                director: "Ridley Scott",
+                poster: "https://image.tmdb.org/t/p/w200/ty8TGRuvJLPUmAR1H1nRIsgCLtx.jpg",
+                real: [
+                    { quoteTr: "Hayatta yaptıklarımız ebediyette yankılanır.", quoteOriginal: "What we do in life echoes in eternity.", character: "Maximus", actor: "Russell Crowe" },
+                    { quoteTr: "Eğlenmediniz mi? Eğlenmediniz mi? Bunun için gelmediniz mi?", quoteOriginal: "Are you not entertained? Are you not entertained? Is this not why you are here?", character: "Maximus", actor: "Russell Crowe" },
+                    { quoteTr: "Ben işaret verince burayı cehenneme çevirin.", quoteOriginal: "At my signal, unleash hell.", character: "Maximus", actor: "Russell Crowe" }
+                ],
+                fake: [
+                    { quoteTr: "İmparator ölebilir, Roma yıkılabilir, lejyonlar dağılabilir. Ama bir adamın onuru, zamanın ötesindedir." },
+                    { quoteTr: "Arena kumdan ibaret değildir. Her kan damlası, her kılıç sesi, seyircinin alkışına karışıp bir adamın kaderini yazar." },
+                    { quoteTr: "Özgürlük nedir biliyor musun? Kılıcı bırakıp tarlana dönmek değil. Kılıcı savurup yine de tarlana dönmeyi seçebilmektir." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 6. THE SILENCE OF THE LAMBS
+            // ══════════════════════════════════════
+            {
+                id: "film_silenceofthelambs",
+                titleTr: "Kuzuların Sessizliği",
+                titleOriginal: "The Silence of the Lambs",
+                year: 1991,
+                director: "Jonathan Demme",
+                poster: "https://image.tmdb.org/t/p/w200/uS9m8OBk1VFvRgdby1xVtFOFQRE.jpg",
+                real: [
+                    { quoteTr: "Bir keresinde nüfus memuru beni sınamaya kalkmıştı. Ciğerini bakla ile yedim. Yanında da nefis bir kadeh Chianti.", quoteOriginal: "A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.", character: "Hannibal Lecter", actor: "Anthony Hopkins" },
+                    { quoteTr: "Peki Clarice, kuzuların çığlıkları dindi mi?", quoteOriginal: "Well, Clarice, have the lambs stopped screaming?", character: "Hannibal Lecter", actor: "Anthony Hopkins" },
+                    { quoteTr: "Losyonu cildine sürüyor. Her söylendiğinde yapıyor.", quoteOriginal: "It rubs the lotion on its skin. It does this whenever it's told.", character: "Buffalo Bill", actor: "Ted Levine" }
+                ],
+                fake: [
+                    { quoteTr: "Korku en ilkel duygudur. Açlıktan, şehvetten, öfkeden bile eski. Ve en lezzetlisi." },
+                    { quoteTr: "İnsan zihni bir labirenttir. Ben o labirentte dolaşmayı severim." },
+                    { quoteTr: "Canavarlar doğmaz. Canavarlar, kuzuların çığlıklarını duymayı bırakanlardır." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 7. SCHINDLER'S LIST
+            // ══════════════════════════════════════
+            {
+                id: "film_schindlerslist",
+                titleTr: "Schindler'in Listesi",
+                titleOriginal: "Schindler's List",
+                year: 1993,
+                director: "Steven Spielberg",
+                poster: "https://image.tmdb.org/t/p/w200/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
+                real: [
+                    { quoteTr: "Bir can kurtaran, tüm dünyayı kurtarır.", quoteOriginal: "Whoever saves one life, saves the world entire.", character: "Itzhak Stern", actor: "Ben Kingsley" },
+                    { quoteTr: "Daha fazla kişiyi çıkarabilirdim. Daha fazlasını kurtarabilirdim.", quoteOriginal: "I could have got more out. I could have got more.", character: "Oskar Schindler", actor: "Liam Neeson" },
+                    { quoteTr: "Bu liste mutlak iyiliktir. Bu liste hayattır.", quoteOriginal: "The list is an absolute good. The list is life.", character: "Itzhak Stern", actor: "Ben Kingsley" }
+                ],
+                fake: [
+                    { quoteTr: "Bir insanı kurtarmak, tarihin akışını değiştirmez. Ama o insanın tarihini, tamamen değiştirir." },
+                    { quoteTr: "Fabrikanın dumanı ile kampın dumanını ayıran tek şey, rüzgarın yönü değil. Vicdanın ağırlığıdır." },
+                    { quoteTr: "Listeler unutulur. Sayılar silinir. Ama bir çocuğun kırmızı paltosu, siyah beyaz bir dünyada sonsuza kadar yürür." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 8. NO COUNTRY FOR OLD MEN
+            // ══════════════════════════════════════
+            {
+                id: "film_nocountry",
+                titleTr: "İhtiyarlara Yer Yok",
+                titleOriginal: "No Country for Old Men",
+                year: 2007,
+                director: "Coen Kardeşler",
+                poster: "https://image.tmdb.org/t/p/w200/qd5KxlbDfM6RFTLBNQKTkGxARnf.jpg",
+                real: [
+                    { quoteTr: "Yazı tura ile en fazla ne kaybettin?", quoteOriginal: "What's the most you ever lost on a coin toss?", character: "Anton Chigurh", actor: "Javier Bardem" },
+                    { quoteTr: "Uyduğun kural seni buraya kadar getirdiyse ne işe yaradı o kural?", quoteOriginal: "If the rule you followed brought you to this, of what use was the rule?", character: "Anton Chigurh", actor: "Javier Bardem" }
+                ],
+                fake: [
+                    { quoteTr: "Yazı tura, evrenin tek dürüst yargıcıdır. Ne rüşvet alır, ne tehdit dinler, ne de pişmanlık duyar." },
+                    { quoteTr: "Şiddet dediğin, fırtına gibidir. Geldiğini görürsün, ama neyi götüreceğini kestiremezsin." },
+                    { quoteTr: "Yaşlılar bu dünyaya ait değil. Onlar eski kuralların hayaletleri." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 9. THERE WILL BE BLOOD
+            // ══════════════════════════════════════
+            {
+                id: "film_therewillbeblood",
+                titleTr: "Kan Dökülecek",
+                titleOriginal: "There Will Be Blood",
+                year: 2007,
+                director: "Paul Thomas Anderson",
+                poster: "https://image.tmdb.org/t/p/w200/fa0RDkAlCecMNN2rJKNIBqTMu1F.jpg",
+                real: [
+                    { quoteTr: "Milkshake'ini ben içtim! Hepsini içtim!", quoteOriginal: "I drink your milkshake! I drink it up!", character: "Daniel Plainview", actor: "Daniel Day-Lewis" },
+                    { quoteTr: "Baylar bayanlar, ben petrol adamıyım.", quoteOriginal: "I'm an oil man, ladies and gentlemen.", character: "Daniel Plainview", actor: "Daniel Day-Lewis" },
+                    { quoteTr: "İnsanlara bakınca sevecek bir şey göremiyorum.", quoteOriginal: "I look at people and I see nothing worth liking.", character: "Daniel Plainview", actor: "Daniel Day-Lewis" }
+                ],
+                fake: [
+                    { quoteTr: "Petrole kara altın derler. Ama asıl kararmış olan, altının peşinde koşan adamın ruhudur." },
+                    { quoteTr: "Toprağın altında bir şey bulduğunda, üstündeki her şey değişir." },
+                    { quoteTr: "Kilise de petrol kuyusuna benzer. Yeterince derine inersen, her ikisinden de şeytan fışkırır." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 10. TAXI DRIVER
+            // ══════════════════════════════════════
+            {
+                id: "film_taxidriver",
+                titleTr: "Taksi Şoförü",
+                titleOriginal: "Taxi Driver",
+                year: 1976,
+                director: "Martin Scorsese",
+                poster: "https://image.tmdb.org/t/p/w200/ekstpH614fwDX8DUln1a2Opz0N8.jpg",
+                real: [
+                    { quoteTr: "Bana mı diyorsun? Bana mı diyorsun?", quoteOriginal: "You talkin' to me? You talkin' to me?", character: "Travis Bickle", actor: "Robert De Niro" },
+                    { quoteTr: "Bir gün gerçek bir yağmur yağacak ve sokakları bütün pisliklerden temizleyecek.", quoteOriginal: "Someday a real rain will come and wash all this scum off the streets.", character: "Travis Bickle", actor: "Robert De Niro" },
+                    { quoteTr: "Kafamda kötü fikirler dolanıyor.", quoteOriginal: "I got some bad ideas in my head.", character: "Travis Bickle", actor: "Robert De Niro" }
+                ],
+                fake: [
+                    { quoteTr: "Geceleri şehri temizleyen taksicilerdir. Karanlığın içinde bulduğumuz pisliği eve taşırız." },
+                    { quoteTr: "Ayna, insanın kendine söylediği yalanların tanığıdır." },
+                    { quoteTr: "Yağmur sadece tozu değil, günahları da temizler. Ama bu şehri temizlemeye, tufanlar yetmez." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 11. BLADE RUNNER
+            // ══════════════════════════════════════
+            {
+                id: "film_bladerunner",
+                titleTr: "Bıçak Sırtı",
+                titleOriginal: "Blade Runner",
+                year: 1982,
+                director: "Ridley Scott",
+                poster: "https://image.tmdb.org/t/p/w200/vfzE3pjE5G7XJyAK9RwnXJmGZtE.jpg",
+                real: [
+                    { quoteTr: "Yaşamayacak, yazık. Ama kim sonsuza kadar yaşayacak ki?", quoteOriginal: "It's too bad she won't live. But then again, who does?", character: "Gaff", actor: "Edward James Olmos" },
+                    { quoteTr: "Korku içinde yaşamak ilginç bir deneyim değil mi? İşte kölelik böyle bir şey.", quoteOriginal: "Quite an experience to live in fear, isn't it? That's what it is to be a slave.", character: "Roy Batty", actor: "Rutger Hauer" }
+                ],
+                fake: [
+                    { quoteTr: "Anılar bir android için en büyük işkencedir. Çünkü anıları değil ama acıları gerçektir." },
+                    { quoteTr: "İnsan ile makine arasındaki fark nedir? Korku. Makineler ölmekten korkmaz." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 12. BABAM VE OĞLUM
+            // ══════════════════════════════════════
+            {
+                id: "film_babamveoglum",
+                titleTr: "Babam ve Oğlum",
+                titleOriginal: "Babam ve Oğlum",
+                year: 2005,
+                director: "Çağan Irmak",
+                poster: "https://image.tmdb.org/t/p/w200/uU4A53Ee4pUDAWWx2wFq4pHvIFD.jpg",
+                real: [
+                    { quoteTr: "En kötüsü ne biliyor musun? Arada kalmak. Ben ne gidebildim, ne de kalabildim.", quoteOriginal: "En kötüsü ne biliyor musun? Arada kalmak. Ben ne gidebildim, ne de kalabildim.", character: "Sadık", actor: "Fikret Kuşkan" },
+                    { quoteTr: "Gidecem diyen adamın önünde dağ olsa durmaz.", quoteOriginal: "Gidecem diyen adamın önünde dağ olsa durmaz.", character: "Teyze", actor: "Şerif Sezer" },
+                    { quoteTr: "Baba, insan büyüyünce hayalleri küçülür mü?", quoteOriginal: "Baba, insan büyüyünce hayalleri küçülür mü?", character: "Deniz", actor: "Ege Tanman" }
+                ],
+                fake: [
+                    { quoteTr: "Ege'nin incir ağaçları şahittir: Bir baba oğluna en çok, susarak bağırır." },
+                    { quoteTr: "Köy evinde geçen her yaz, insanın ömründen bir yıl değil, ruhundan bir yara alır götürür." },
+                    { quoteTr: "Aile fotoğrafları neden siyah beyazdır bilir misin? Çünkü geçmişin rengi yoktur." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 13. KIŞ UYKUSU
+            // ══════════════════════════════════════
+            {
+                id: "film_kisuykusu",
+                titleTr: "Kış Uykusu",
+                titleOriginal: "Kış Uykusu",
+                year: 2014,
+                director: "Nuri Bilge Ceylan",
+                poster: "https://image.tmdb.org/t/p/w200/5kFENqBjMVqkYf42vAGFhPvDbLA.jpg",
+                real: [
+                    { quoteTr: "Sıkılmak ne demekmiş ya? Sıkılmak için hiçbir zaman bir saniye vaktim olmadı benim.", quoteOriginal: "Sıkılmak ne demekmiş ya? Sıkılmak için hiçbir zaman bir saniye vaktim olmadı benim.", character: "Aydın", actor: "Haluk Bilginer" },
+                    { quoteTr: "Vicdan, ahlâk, ideal, ilkeli olmak... Bir insan bu kelimeleri bu kadar fazla kullanıyorsa esas ondan şüphe etmek lazım.", quoteOriginal: "Vicdan, ahlâk, ideal, ilkeli olmak... Bir insan bu kelimeleri bu kadar fazla kullanıyorsa esas ondan şüphe etmek lazım.", character: "Nihal", actor: "Melisa Sözen" },
+                    { quoteTr: "Vicdan, güçlüleri korkutmak için düşünülmüş, korkakların kullandığı sözcükten başka bir şey değildir. Bizim vicdanımız güçlü kollarımız, kılıçlarsa yasalarımızdır.", quoteOriginal: "Vicdan, güçlüleri korkutmak için düşünülmüş, korkakların kullandığı sözcükten başka bir şey değildir. Bizim vicdanımız güçlü kollarımız, kılıçlarsa yasalarımızdır.", character: "Levent", actor: "Nadir Sarıbacak" }
+                ],
+                fake: [
+                    { quoteTr: "Kapadokya'da kış, taşların arasına sinmiş bir sır gibidir. Herkes bilir, kimse konuşmaz." },
+                    { quoteTr: "Zenginlik, attan düşeni izlerken yüzde beliren ifadedir." },
+                    { quoteTr: "Bir adamın kütüphanesi, onun kaçmak istediği dünyaların haritasıdır." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 14. MASUMİYET
+            // ══════════════════════════════════════
+            {
+                id: "film_masumiyet",
+                titleTr: "Masumiyet",
+                titleOriginal: "Masumiyet",
+                year: 1997,
+                director: "Zeki Demirkubuz",
+                poster: "https://image.tmdb.org/t/p/w200/9KxqDbrLTCxJZBqTNtnBGjvFqVZ.jpg",
+                real: [
+                    { quoteTr: "Sevdim abla. Ne kötülük var bunda?", quoteOriginal: "Sevdim abla. Ne kötülük var bunda?", character: "Yusuf", actor: "Güven Kıraç" },
+                    { quoteTr: "20 yıl oldu. Gidilecek yer kalmadı. Söylenecek söz de. İstersen gittiği yere kadar gider. İstemezsen yarın çek git.", quoteOriginal: "20 yıl oldu. Gidilecek yer kalmadı. Söylenecek söz de. İstersen gittiği yere kadar gider. İstemezsen yarın çek git.", character: "Uğur", actor: "Derya Alabora" },
+                    { quoteTr: "Hayatta hiçbir şey beklememek en iyisi.", quoteOriginal: "Hayatta hiçbir şey beklememek en iyisi.", character: "Bekir", actor: "Haluk Bilginer" }
+                ],
+                fake: [
+                    { quoteTr: "Hapishane duvarları insanı dışarıdan korur. Asıl tehlike, insanın kendi vicdanındadır." },
+                    { quoteTr: "Aşk bazen bir cinayettir. Öldüren değil, ölen suçludur." },
+                    { quoteTr: "Kader, insanın alnına yazılmışsa, benim alnımda kocaman bir yalan var." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 15. GEMİDE
+            // ══════════════════════════════════════
+            {
+                id: "film_gemide",
+                titleTr: "Gemide",
+                titleOriginal: "Gemide",
+                year: 1998,
+                director: "Serdar Akar",
+                poster: "https://image.tmdb.org/t/p/w200/t0YhrqXRhYQtkmFloA2j7qTz6QI.jpg",
+                real: [
+                    { quoteTr: "Bakire kız nasıl orospu olur ben anlamadım gitti.", quoteOriginal: "Bakire kız nasıl orospu olur ben anlamadım gitti.", character: "Kaptan", actor: "Erkan Can" },
+                    { quoteTr: "Gemi bir ülke gibidir. Kaptan da onun başbakanı.", quoteOriginal: "Gemi bir ülke gibidir. Kaptan da onun başbakanı.", character: "Kaptan", actor: "Erkan Can" },
+                    { quoteTr: "Polislerin suratına bakıp kusura bakmayın abi kaza oldu diyemezsin.", quoteOriginal: "Polislerin suratına bakıp kusura bakmayın abi kaza oldu diyemezsin.", character: "Kaptan", actor: "Erkan Can" }
+                ],
+                fake: [
+                    { quoteTr: "Deniz, insanın içini temizlemez. Tam tersi, bütün pisliği yüzeye çıkarır." },
+                    { quoteTr: "Gemide zaman farklı akar. Saatler değil, ihanetler ölçer vardiyaları." },
+                    { quoteTr: "Kaptan dediğin, tanrıya en yakın adamdır. Ama tanrı denizi unutmuş." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 16. HABABAM SINIFI
+            // ══════════════════════════════════════
+            {
+                id: "film_hababamsinifi",
+                titleTr: "Hababam Sınıfı",
+                titleOriginal: "Hababam Sınıfı",
+                year: 1975,
+                director: "Ertem Eğilmez",
+                poster: "https://image.tmdb.org/t/p/w200/7VDqF2sx1ERULqDg9w4qRBvm5mS.jpg",
+                real: [
+                    { quoteTr: "Şaban yalan söylemez Müdür Bey. Ben yakmadım diyorsa yakmamıştır.", quoteOriginal: "Şaban yalan söylemez Müdür Bey. Ben yakmadım diyorsa yakmamıştır.", character: "Güdük Necmi", actor: "Halit Akçatepe" },
+                    { quoteTr: "Ben tüccar değilim! Eğitimciyim!", quoteOriginal: "Ben tüccar değilim! Eğitimciyim!", character: "Mahmut Hoca", actor: "Münir Özkul" },
+                    { quoteTr: "Acelemiz yok be hocam. Sindire sindire okuyoruz. Çift dikiş.", quoteOriginal: "Acelemiz yok be hocam. Sindire sindire okuyoruz. Çift dikiş.", character: "Damat Ferit", actor: "Tarık Akan" }
+                ],
+                fake: [
+                    { quoteTr: "Bir sınıfı karıştıran tek şey kopya değildir. Bazen bir kahkaha, bütün kuralları altüst eder." },
+                    { quoteTr: "Okulda öğrendiğim en önemli şey, sınavda sorulmayandı. Hayatın kendisi, en zor dersti." },
+                    { quoteTr: "Yemekhanede fasulye, sınıfta edebiyat, bahçede hayat dersi. Hangisi daha önemli? Tabii ki fasulye." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 17. DAS LEBEN DER ANDEREN
+            // ══════════════════════════════════════
+            {
+                id: "film_dasleben",
+                titleTr: "Başkalarının Hayatı",
+                titleOriginal: "Das Leben der Anderen",
+                year: 2006,
+                director: "Florian Henckel von Donnersmarck",
+                poster: "https://image.tmdb.org/t/p/w200/2oPGTYKFX6QZWYcvBEdPOcnQKqO.jpg",
+                real: [
+                    { quoteTr: "İyi insan, hatırlayandır.", quoteOriginal: "Ein guter Mensch ist, der sich erinnert.", character: "Gerd Wiesler", actor: "Ulrich Mühe" },
+                    { quoteTr: "Gerçekler, siniri sağlam olmayanlara göre değildir.", quoteOriginal: "Die Wahrheit ist nichts für schwache Nerven.", character: "Georg Dreyman", actor: "Sebastian Koch" }
+                ],
+                fake: [
+                    { quoteTr: "Doğu Berlin'de yağmur, gözetleme kulelerinin arasından sızar. Islattığı tek şey, dosyalardaki mürekkeptir." },
+                    { quoteTr: "Dinlemek bir sanattır. Ama duyduğunu hissetmek, bir lanet." },
+                    { quoteTr: "Daktilo sesi, yalanların üzerine gerçeği kazıyan bir bıçaktır." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 18. LA VITA È BELLA
+            // ══════════════════════════════════════
+            {
+                id: "film_lavitaebella",
+                titleTr: "Hayat Güzeldir",
+                titleOriginal: "La Vita è Bella",
+                year: 1997,
+                director: "Roberto Benigni",
+                poster: "https://image.tmdb.org/t/p/w200/74hLDKjD5aGYOotO6esUVaeISa2.jpg",
+                real: [
+                    { quoteTr: "Günaydın prenses!", quoteOriginal: "Buongiorno, principessa!", character: "Guido", actor: "Roberto Benigni" },
+                    { quoteTr: "Bu benim hikayem. Babamın benim için yaptığı fedakarlığın hikayesi.", quoteOriginal: "Questa è la mia storia. Questo è il sacrificio che mio padre ha fatto per me.", character: "Giosuè", actor: "Giorgio Cantarini" },
+                    { quoteTr: "Biz kazandık!", quoteOriginal: "Abbiamo vinto!", character: "Giosuè", actor: "Giorgio Cantarini" }
+                ],
+                fake: [
+                    { quoteTr: "Mizah, faşizme karşı en büyük direniştir. Diktatörler kahkahadan korkar." },
+                    { quoteTr: "Çocukken hayat oyundur. Büyüyünce oyunun hayat olduğunu anlarsın." },
+                    { quoteTr: "Bir daha hiçbir şey eskisi gibi olmadı." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 19. AMÉLIE
+            // ══════════════════════════════════════
+            {
+                id: "film_amelie",
+                titleTr: "Amélie",
+                titleOriginal: "Le Fabuleux Destin d'Amélie Poulain",
+                year: 2001,
+                director: "Jean-Pierre Jeunet",
+                poster: "https://image.tmdb.org/t/p/w200/q0QH2My6Sk4t1WFHqhWvPx9oYuC.jpg",
+                real: [
+                    { quoteTr: "Hayat ne tuhaf. Çocukken zaman geçmek bilmez. Sonra bir bakarsın yaşın 50 olmuş.", quoteOriginal: "C'est drôle, la vie. Quand on est gosse, le temps ne passe pas. Puis du jour au lendemain, on a 50 ans.", character: "Anlatıcı", actor: "André Dussollier" },
+                    { quoteTr: "Saat dörtte, Amélie Poulain ani bir aydınlanma yaşar: kendini başkalarına adamaya karar verir.", quoteOriginal: "À quatre heures, Amélie Poulain a une illumination soudaine: se dévouer aux autres.", character: "Anlatıcı", actor: "André Dussollier" },
+                    { quoteTr: "Hanımefendi, bir melekle randevunuz var.", quoteOriginal: "Mademoiselle, vous avez rendez-vous avec un ange.", character: "Lucien", actor: "Jamel Debbouze" }
+                ],
+                fake: [
+                    { quoteTr: "Paris'te her taşın altında bir sır, her kaldırım taşında bir aşk hikayesi vardır." },
+                    { quoteTr: "Mutluluk, başkalarının hayatına küçük dokunuşlar yapmaktır. Bir taşı yerine koymak, bir kapıyı aralamak, bir gülümseme." },
+                    { quoteTr: "Fotoğraf kabininde unutulan bir vesikalık, aslında hiç tanımadığın birinin mektubudur." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 20. RELATOS SALVAJES
+            // ══════════════════════════════════════
+            {
+                id: "film_relatossalvajes",
+                titleTr: "Vahşi Hikayeler",
+                titleOriginal: "Relatos Salvajes",
+                year: 2014,
+                director: "Damián Szifron",
+                poster: "https://image.tmdb.org/t/p/w200/rTI4CzFNeG9pjKCTIQAPBrh8CNd.jpg",
+                real: [
+                    { quoteTr: "Bu bir haksızlık!", quoteOriginal: "¡Esto es una injusticia!", character: "Simón", actor: "Ricardo Darín" },
+                    { quoteTr: "Kızan kaybeder.", quoteOriginal: "El que se pica, pierde.", character: "Isabel", actor: "María Marull" },
+                    { quoteTr: "Kim hayatında bir kez olsun birini öldürmeyi istememiştir ki?", quoteOriginal: "¿Quién no ha deseado matar a alguien alguna vez?", character: "Anlatıcı", actor: "Darío Grandinetti" }
+                ],
+                fake: [
+                    { quoteTr: "Trafikte yol vermek bir sınavdır, herkes sınıfta kalır." },
+                    { quoteTr: "Arjantin'de öfke, tango gibi yavaş başlar, sonrası kontrol edilemez." }
+                ]
+            },
+            // ══════════════════════════════════════
+            // 21. SPIRITED AWAY
+            // ══════════════════════════════════════
+            {
+                id: "film_spiritedaway",
+                titleTr: "Ruhların Kaçışı",
+                titleOriginal: "Spirited Away (Sen to Chihiro no Kamikakushi)",
+                year: 2001,
+                director: "Hayao Miyazaki",
+                poster: "https://image.tmdb.org/t/p/w200/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+                real: [
+                    { quoteTr: "Birini bir kez tanıdın mı, onu aslında hiç unutmazsın.", quoteOriginal: "Once you've met someone, you never really forget them.", character: "Zeniba", actor: "Mari Natsuki" },
+                    { quoteTr: "Haku, iyi biri olduğunu biliyordum!", quoteOriginal: "Haku, I knew you were good!", character: "Chihiro", actor: "Rumi Hiiragi" },
+                    { quoteTr: "Her şeyi tamamen unutursan sen de yok olursun. Seni gerçek kılan tek şey adındır.", quoteOriginal: "If you completely forget, you'll disappear. Your name is the only thing that keeps you real.", character: "Haku", actor: "Miyu Irino" }
+                ],
+                fake: [
+                    { quoteTr: "Canavar dediklerimiz, sadece adını koyamadığımız duygulardır." },
+                    { quoteTr: "Her trenin bir son durağı vardır. Biri hariç." },
+                    { quoteTr: "Büyümek, en yavaş etki eden büyüdür." }
                 ]
             }
         ];
@@ -463,6 +584,7 @@
         let currentFakeQuote = null;
         let currentRealSide = null;
         let answered = false;
+        const TOTAL_ROUNDS = 15;
 
         const els = {
             filmTitleTr: document.getElementById('filmTitleTr'),
@@ -487,27 +609,13 @@
             progressFill: document.getElementById('progressFill')
         };
 
-        function shuffleArray(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a;
-        }
-
-        function randomFromArray(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
+        function shuffleArray(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+        function randomFromArray(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
         let shuffledFilms = [];
-        const TOTAL_ROUNDS = 10; // Kaç tur oynanacak
 
         function restartGame() {
-            currentIndex = 0;
-            correctCount = 0;
-            wrongCount = 0;
-            answered = false;
+            currentIndex = 0; correctCount = 0; wrongCount = 0; answered = false;
             updateScores();
             els.gameOverScreen.classList.remove('active');
             els.resultScreen.classList.remove('active');
@@ -523,19 +631,13 @@
         }
 
         function loadRound() {
-            if (currentIndex >= TOTAL_ROUNDS || shuffledFilms.length === 0) {
-                showGameOver();
-                return;
-            }
+            if (currentIndex >= TOTAL_ROUNDS || shuffledFilms.length === 0) { showGameOver(); return; }
             answered = false;
             els.resultScreen.classList.remove('active');
             els.feedbackOverlay.classList.remove('show');
-            els.panelLeft.style.pointerEvents = 'auto';
-            els.panelRight.style.pointerEvents = 'auto';
-            els.panelLeft.style.opacity = '1';
-            els.panelRight.style.opacity = '1';
-            els.panelLeft.style.background = '';
-            els.panelRight.style.background = '';
+            els.panelLeft.style.pointerEvents = 'auto'; els.panelRight.style.pointerEvents = 'auto';
+            els.panelLeft.style.opacity = '1'; els.panelRight.style.opacity = '1';
+            els.panelLeft.style.background = ''; els.panelRight.style.background = '';
 
             const film = shuffledFilms[currentIndex % shuffledFilms.length];
             currentRealQuote = randomFromArray(film.real);
@@ -563,40 +665,27 @@
         function choosePanel(side) {
             if (answered) return;
             answered = true;
-
             const film = shuffledFilms[currentIndex % shuffledFilms.length];
             const isCorrect = (side === currentRealSide);
 
-            if (currentRealSide === 'left') {
-                els.panelLeft.style.background = '#1a3a2a';
-                els.panelRight.style.background = '#3a1a1a';
-            } else {
-                els.panelRight.style.background = '#1a3a2a';
-                els.panelLeft.style.background = '#3a1a1a';
-            }
+            if (currentRealSide === 'left') { els.panelLeft.style.background = '#1a3a2a'; els.panelRight.style.background = '#3a1a1a'; }
+            else { els.panelRight.style.background = '#1a3a2a'; els.panelLeft.style.background = '#3a1a1a'; }
 
             els.feedbackText.textContent = isCorrect ? '✓' : '✗';
             els.feedbackText.className = 'feedback-text ' + (isCorrect ? 'correct' : 'wrong');
             els.feedbackOverlay.classList.add('show');
 
-            if (isCorrect) correctCount++;
-            else wrongCount++;
+            if (isCorrect) correctCount++; else wrongCount++;
             updateScores();
+            els.panelLeft.style.pointerEvents = 'none'; els.panelRight.style.pointerEvents = 'none';
 
-            els.panelLeft.style.pointerEvents = 'none';
-            els.panelRight.style.pointerEvents = 'none';
-
-            setTimeout(() => {
-                els.feedbackOverlay.classList.remove('show');
-                showResult(film, isCorrect);
-            }, 700);
+            setTimeout(() => { els.feedbackOverlay.classList.remove('show'); showResult(film, isCorrect); }, 700);
         }
 
         function showResult(film, isCorrect) {
             els.resultIcon.textContent = isCorrect ? '✅' : '❌';
             els.resultTitle.textContent = isCorrect ? 'Doğru bildiniz!' : 'Yanlış bildiniz!';
             els.resultDetail.textContent = film.titleTr + ' (' + film.titleOriginal + ', ' + film.year + ')';
-
             els.resultQuotes.innerHTML = `
                 <div class="result-quote-block real">
                     <div class="tag real">✅ Gerçek Alıntı</div>
@@ -610,26 +699,20 @@
                     <div class="quote-original" style="color:#999;">Bu söz filmde geçmez. Yapay zeka tarafından üretilmiştir.</div>
                 </div>
             `;
-
             els.resultQuotes.scrollTop = 0;
             els.resultScreen.classList.add('active');
         }
 
-        function nextRound() {
-            currentIndex++;
-            loadRound();
-        }
+        function nextRound() { currentIndex++; loadRound(); }
 
         function showGameOver() {
-            const total = TOTAL_ROUNDS;
-            const score = correctCount;
+            const total = TOTAL_ROUNDS; const score = correctCount;
             let emoji, message;
             if (score === total) { emoji = '🏆'; message = 'Mükemmel! Tüm alıntıları doğru bildiniz. Gerçek bir sinema tutkunusunuz!'; }
             else if (score >= total * 0.8) { emoji = '🌟'; message = 'Harika! Filmleri iyi tanıyorsunuz. Sahte alıntıları yakalamakta ustasınız.'; }
             else if (score >= total * 0.6) { emoji = '🎬'; message = 'Fena değil! Bazı sahte alıntılar epey inandırıcıydı, değil mi?'; }
             else if (score >= total * 0.4) { emoji = '🍿'; message = 'Eh, idare eder. Yapay zeka bazen çok ikna edici olabiliyor.'; }
             else { emoji = '🤖'; message = 'Yapay zeka sizi kandırmış! Ama üzülmeyin, bu alıntıları ayırt etmek gerçekten zor.'; }
-
             document.getElementById('finalEmoji').textContent = emoji;
             document.getElementById('finalScoreText').textContent = score + ' / ' + total + ' Doğru';
             document.getElementById('finalMessage').textContent = message;
