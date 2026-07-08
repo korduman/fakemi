@@ -971,7 +971,7 @@
 
         function showResult(film, isCorrect) {
             els.resultIcon.textContent = isCorrect ? '✅' : '❌';
-            els.resultTitle.textContent = isCorrect ? 'Doğru bildiniz!' : 'Yanlış bildiniz!';
+            els.resultTitle.textContent = isCorrect ? 'Doğru bildin!' : 'Bilemedin!';
             els.resultDetail.textContent = film.titleTr + ' (' + film.titleOriginal + ', ' + film.year + ')';
             els.resultQuotes.innerHTML = `
                 <div class="result-quote-block real">
@@ -995,11 +995,11 @@
         function showGameOver() {
             const total = TOTAL_ROUNDS; const score = correctCount;
             let emoji, message;
-            if (score === total) { emoji = '🏆'; message = 'Mükemmel! Tüm alıntıları doğru bildiniz. Gerçek bir sinema tutkunusunuz!'; }
-            else if (score >= total * 0.8) { emoji = '🌟'; message = 'Harika! Filmleri iyi tanıyorsunuz. Sahte alıntıları yakalamakta ustasınız.'; }
+            if (score === total) { emoji = '🏆'; message = 'Mükemmel! Tüm alıntıları doğru bildin. Gözünden hiçbir şey kaçmıyor!'; }
+            else if (score >= total * 0.8) { emoji = '🌟'; message = 'Harika! Filmleri iyi tanıyorsun. Sahte alıntıları yakalamakta ustasın.'; }
             else if (score >= total * 0.6) { emoji = '🎬'; message = 'Fena değil! Bazı sahte alıntılar epey inandırıcıydı, değil mi?'; }
             else if (score >= total * 0.4) { emoji = '🍿'; message = 'Eh, idare eder. Yapay zeka bazen çok ikna edici olabiliyor.'; }
-            else { emoji = '🤖'; message = 'Yapay zeka sizi kandırmış! Ama üzülmeyin, bu alıntıları ayırt etmek gerçekten zor.'; }
+            else { emoji = '🤖'; message = 'Yapay zeka sena fena kandırdı! Ama üzülme, bu alıntıları ayırt etmek gerçekten zor.'; }
             document.getElementById('finalEmoji').textContent = emoji;
             document.getElementById('finalScoreText').textContent = score + ' / ' + total + ' Doğru';
             document.getElementById('finalMessage').textContent = message;
