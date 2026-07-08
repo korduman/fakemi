@@ -88,20 +88,17 @@
 </head>
 <body>
 <div class="header">
-    <div style="display: flex; align-items: center; width: 100%;">
-        <div class="logo">🎬 Hangisi Gerçek?</div>
-        <div class="score-area" style="margin-left: auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div>
+            <div class="logo">🎬 Hangisi Gerçek?</div>
+            <div style="font-size: 0.6rem; color: #888; margin-top: 1px;">Biri filmden, biri yapay zeka uydurması</div>
+        </div>
+        <div class="score-area">
             <span class="score-item">✅<span id="correctCount">0</span></span>
             <span class="score-item">❌<span id="wrongCount">0</span></span>
         </div>
     </div>
-    <div style="font-size: 0.65rem; color: #888; width: 100%;">Biri filmden gerçek alıntı, diğeri yapay zeka uydurması</div>
 </div>
-    <div class="score-area">
-            <span class="score-item">✅<span id="correctCount">0</span></span>
-            <span class="score-item">❌<span id="wrongCount">0</span></span>
-        </div>
-    </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
     <div class="game-container" id="gameContainer">
         <div class="film-info">
